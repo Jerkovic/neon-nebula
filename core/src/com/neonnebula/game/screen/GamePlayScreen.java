@@ -17,6 +17,7 @@ public class GamePlayScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        // rendera en bakgrund
 
     }
 

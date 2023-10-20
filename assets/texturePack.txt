@@ -1,0 +1,124 @@
+texturePack.png
+size: 1802, 1286
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+background
+  rotate: false
+  xy: 1, 1
+  size: 1800, 1200
+  orig: 1800, 1200
+  offset: 0, 0
+  index: -1
+enemy-egg
+  rotate: false
+  xy: 786, 1257
+  size: 24, 25
+  orig: 32, 32
+  offset: 4, 1
+  index: 1
+enemy-egg
+  rotate: false
+  xy: 812, 1257
+  size: 20, 25
+  orig: 32, 32
+  offset: 6, 2
+  index: 2
+enemy-egg
+  rotate: false
+  xy: 818, 1203
+  size: 16, 25
+  orig: 32, 32
+  offset: 8, 2
+  index: 3
+Explosion
+  rotate: false
+  xy: 818, 1230
+  size: 17, 17
+  orig: 96, 96
+  offset: 39, 36
+  index: 0
+Explosion
+  rotate: false
+  xy: 764, 1203
+  size: 52, 52
+  orig: 96, 96
+  offset: 21, 18
+  index: 1
+Explosion
+  rotate: false
+  xy: 630, 1203
+  size: 65, 67
+  orig: 96, 96
+  offset: 15, 12
+  index: 2
+Explosion
+  rotate: false
+  xy: 697, 1203
+  size: 65, 66
+  orig: 96, 96
+  offset: 14, 13
+  index: 3
+Explosion
+  rotate: true
+  xy: 379, 1203
+  size: 80, 78
+  orig: 96, 96
+  offset: 6, 10
+  index: 4
+Explosion
+  rotate: true
+  xy: 1, 1203
+  size: 82, 84
+  orig: 96, 96
+  offset: 6, 7
+  index: 5
+Explosion
+  rotate: false
+  xy: 158, 1203
+  size: 85, 81
+  orig: 96, 96
+  offset: 3, 11
+  index: 6
+Explosion
+  rotate: false
+  xy: 459, 1203
+  size: 84, 79
+  orig: 96, 96
+  offset: 3, 13
+  index: 7
+Explosion
+  rotate: false
+  xy: 545, 1203
+  size: 83, 75
+  orig: 96, 96
+  offset: 3, 17
+  index: 8
+Explosion
+  rotate: true
+  xy: 87, 1203
+  size: 82, 69
+  orig: 96, 96
+  offset: 3, 25
+  index: 9
+Explosion
+  rotate: true
+  xy: 245, 1203
+  size: 81, 66
+  orig: 96, 96
+  offset: 3, 29
+  index: 10
+Explosion
+  rotate: true
+  xy: 313, 1203
+  size: 81, 64
+  orig: 96, 96
+  offset: 3, 32
+  index: 11
+PlayerShip
+  rotate: false
+  xy: 764, 1257
+  size: 20, 27
+  orig: 32, 32
+  offset: 6, 2
+  index: -1
