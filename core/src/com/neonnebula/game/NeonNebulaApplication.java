@@ -1,6 +1,7 @@
 package com.neonnebula.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.neonnebula.game.screen.SplashScreen;
 
@@ -9,7 +10,7 @@ public class NeonNebulaApplication extends ApplicationAdapter {
 
 	@Override
 	public void create () {
-        game = new NeonNebulaGame();
+        game = new NeonNebulaGame(new AssetManager());
         game.create();
         game.setScreen(new SplashScreen(game));
 	}

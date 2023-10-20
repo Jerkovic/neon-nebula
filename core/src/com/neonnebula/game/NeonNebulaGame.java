@@ -2,12 +2,26 @@ package com.neonnebula.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class NeonNebulaGame extends Game {
 
+    private AssetManager assetManager;
+
+
+    public NeonNebulaGame(AssetManager assetManager) {
+        this.assetManager = assetManager;
+    }
+
+    private void loadAssets() {
+        assetManager.load("texturePack.txt", TextureAtlas.class);
+        assetManager.finishLoading();
+    }
+
     @Override
     public void create() {
-
+        loadAssets();
     }
 
     @Override
