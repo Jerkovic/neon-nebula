@@ -9,6 +9,7 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
+        config.setWindowedMode(1024, 1024);
 		config.setTitle("neon-nebula");
 		new Lwjgl3Application(new NeonNebulaApplication(), config);
 	}
