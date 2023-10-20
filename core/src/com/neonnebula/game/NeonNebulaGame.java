@@ -7,9 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class NeonNebulaGame extends Game {
 
-
     private AssetManager assetManager;
-
 
     public NeonNebulaGame(AssetManager assetManager) {
         this.assetManager = assetManager;
@@ -66,5 +64,6 @@ public class NeonNebulaGame extends Game {
     @Override
     public void dispose() {
         super.dispose();
+        assetManager.dispose();
     }
 }
