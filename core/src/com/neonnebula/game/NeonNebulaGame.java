@@ -7,10 +7,19 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class NeonNebulaGame extends Game {
 
+
     private AssetManager assetManager;
 
 
     public NeonNebulaGame(AssetManager assetManager) {
+        this.assetManager = assetManager;
+    }
+
+    public AssetManager getAssetManager() {
+        return assetManager;
+    }
+
+    public void setAssetManager(AssetManager assetManager) {
         this.assetManager = assetManager;
     }
 
