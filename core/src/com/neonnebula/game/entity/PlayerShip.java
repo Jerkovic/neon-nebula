@@ -5,20 +5,26 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.Color;
+
 
 public class PlayerShip {
 
     TextureRegion texture;
-    Sprite sprite;
+    Sprite sprite, shadow;
 
     public PlayerShip(TextureRegion textureRegion) {
         sprite = new Sprite(textureRegion);
         sprite.setOriginCenter();
         sprite.setOriginBasedPosition(0f, 0f);
+
+        shadow = new Sprite(sprite);
+        shadow.setColor(Color.BLACK);
+        shadow.setAlpha(.3f);
     }
 
     public void handleInput() {
-        float speed = 15f; // should be stored in ...prestanda class?
+        float speed = 15f;
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             sprite.translate(0, 5);
         }
@@ -34,6 +40,8 @@ public class PlayerShip {
     }
 
     public void render(SpriteBatch batch) {
+        shadow.setOriginBasedPosition(sprite.getX() + 15f, sprite.getY()-15f);
+        shadow.draw(batch);
         sprite.draw(batch);
     }
 }

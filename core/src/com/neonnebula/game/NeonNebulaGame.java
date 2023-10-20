@@ -3,6 +3,7 @@ package com.neonnebula.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class NeonNebulaGame extends Game {
@@ -23,6 +24,7 @@ public class NeonNebulaGame extends Game {
 
     private void loadAssets() {
         assetManager.load("texturePack.txt", TextureAtlas.class);
+        assetManager.load("music/jeroen.mp3", Music.class);
         assetManager.finishLoading();
     }
 

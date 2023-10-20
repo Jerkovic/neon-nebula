@@ -1,6 +1,7 @@
 package com.neonnebula.game.screen;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -21,6 +22,9 @@ public class GamePlayScreen implements Screen {
         batch = new SpriteBatch();
 
         TextureAtlas atlas = game.getAssetManager().get("texturePack.txt");
+        Music music = game.getAssetManager().get("music/jeroen.mp3");
+        music.play();
+
         background = atlas.findRegion("background");
 
         playerShip = new PlayerShip(atlas.findRegion("PlayerShip"));
