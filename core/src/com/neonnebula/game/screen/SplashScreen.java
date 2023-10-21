@@ -35,30 +35,32 @@ public class SplashScreen implements Screen {
         viewport.apply(true);
 
         font = new BitmapFont();
-        font.getData().setScale(2, 2);
     }
 
     @Override
     public void show() {
     }
 
-    public void update() {
+    public void update(float delta) {
         // handleInputs
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
-            game.setScreen(new GamePlayScreen(game));
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            game.setGamePlayScreen();
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            game.quit();
         }
     }
 
     @Override
     public void render(float delta) {
         // logic
-        update();
+        update(delta);
         camera.update();
 
         // render
         batch.begin();
         batch.draw(img, 0, 0);
-        font.draw(batch, "Press any key", (camera.viewportWidth / 2f) - 80, camera.viewportHeight / 2f);
+        font.draw(batch, "Press space bar", (camera.viewportWidth / 2f) - 80, camera.viewportHeight / 2f);
         batch.end();
     }
 

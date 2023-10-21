@@ -12,7 +12,7 @@ public class NeonNebulaApplication extends ApplicationAdapter {
 	public void create () {
         game = new NeonNebulaGame(new AssetManager());
         game.create();
-        game.setScreen(new SplashScreen(game));
+        game.setSplashScreen();
 	}
 
     @Override
@@ -22,7 +22,6 @@ public class NeonNebulaApplication extends ApplicationAdapter {
 
     @Override
 	public void render () {
-        // render
 		ScreenUtils.clear(0, 0, 0, 1);
         game.render();
 	}
