@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.neonnebula.game.screen.GamePlayScreen;
 import com.neonnebula.game.screen.SplashScreen;
@@ -29,6 +30,7 @@ public class NeonNebulaGame extends Game {
 
     private void loadAssets() {
         assetManager.load("texturePack.txt", TextureAtlas.class);
+        assetManager.load("graphics/logo/neon-nebula.png", Texture.class);
         assetManager.load("music/jeroen.mp3", Music.class);
         assetManager.load("sfx/laser.wav", Sound.class);
         assetManager.finishLoading();

@@ -15,7 +15,7 @@ public class SplashScreen implements Screen {
     NeonNebulaGame game;
 
     SpriteBatch batch;
-    Texture img;
+    Texture splashImage, logoImage;
 
     OrthographicCamera camera;
     Viewport viewport;
@@ -25,7 +25,9 @@ public class SplashScreen implements Screen {
     public SplashScreen(NeonNebulaGame game) {
         this.game = game;
         batch = new SpriteBatch();
-        img = new Texture("graphics/splash2.jpg");
+
+        splashImage = new Texture("graphics/splash2.jpg");
+        logoImage = new Texture("graphics/logo/neon-nebula.png");
 
         camera = new OrthographicCamera();
         camera.lookAt(0,0,0);
@@ -59,8 +61,9 @@ public class SplashScreen implements Screen {
 
         // render
         batch.begin();
-        batch.draw(img, 0, 0);
-        font.draw(batch, "Press space bar", (camera.viewportWidth / 2f) - 80, camera.viewportHeight / 2f);
+        batch.draw(splashImage, 0, 0);
+        batch.draw(logoImage, 110, 250);
+        font.draw(batch, "PRESS SPACE TO START GAME", (camera.viewportWidth / 2f) - 114, 140);
         batch.end();
     }
 
@@ -88,6 +91,7 @@ public class SplashScreen implements Screen {
     public void dispose() {
         batch.dispose();
         font.dispose();
-        img.dispose();
+        splashImage.dispose();
+        logoImage.dispose();
     }
 }
