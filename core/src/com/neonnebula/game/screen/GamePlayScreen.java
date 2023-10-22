@@ -5,10 +5,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
 import com.neonnebula.game.NeonNebulaGame;
 import com.neonnebula.game.entity.PlayerShip;
 
@@ -63,6 +63,11 @@ public class GamePlayScreen implements Screen {
         batch.draw(background, 0, 0);
         playerShip.render(batch);
         batch.end();
+
+        // debugs
+        playerShip.renderDebug();
+
+
     }
 
     @Override
@@ -90,5 +95,6 @@ public class GamePlayScreen implements Screen {
         atlas.dispose();
         batch.dispose();
         music.dispose();
+        playerShip.dispose();
     }
 }

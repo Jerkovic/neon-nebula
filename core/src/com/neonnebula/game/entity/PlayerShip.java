@@ -3,15 +3,18 @@ package com.neonnebula.game.entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 
 
 public class PlayerShip {
 
+    private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private final Sprite sprite;
     private final Sprite shadow;
     private float shipSpeed = 200f;
@@ -98,11 +101,29 @@ public class PlayerShip {
     }
 
     public void render(SpriteBatch batch) {
+
         shadow.draw(batch);
         sprite.draw(batch);
     }
 
+    public void renderDebug() {
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        Color prevColor = shapeRenderer.getColor();
+        shapeRenderer.setColor(Color.RED);
+
+        float spriteX = sprite.getX();
+        float spriteY = sprite.getY();
+        float spriteWidth = sprite.getWidth();
+        float spriteHeight = sprite.getHeight();
+
+        shapeRenderer.rect(spriteX, spriteY, spriteWidth, spriteHeight);
+        shapeRenderer.setColor(prevColor); // reset the color
+        shapeRenderer.end();
+    }
+
     public void dispose() {
         laser.dispose();
+        shapeRenderer.dispose();
     }
 }
