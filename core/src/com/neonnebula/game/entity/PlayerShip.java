@@ -21,6 +21,9 @@ public class PlayerShip {
     float timeSinceLastShot = 0.0f; // Time elapsed since the last shot
     boolean canShoot = true; // shooting is allowed or not
 
+    float angle=0, radius=8;
+
+
     public PlayerShip(TextureRegion textureRegion) {
         sprite = new Sprite(textureRegion);
         sprite.setOriginCenter();
@@ -44,10 +47,25 @@ public class PlayerShip {
     public void update(float delta) {
         handleInput(delta);
 
+        updateShipMovement(delta);
+
         timeSinceLastShot += delta;
         if (!canShoot && timeSinceLastShot >= shotCoolDown) {
             canShoot = true;
         }
+    }
+
+    private void updateShipMovement(float delta) {
+        // Calculate the new position of the sprite
+        float x = sprite.getX() + radius * MathUtils.cosDeg(angle);
+        float y = sprite.getY() + radius * MathUtils.sinDeg(angle);
+
+        // Update the sprite's position
+        sprite.setPosition(x, y);
+        shadow.setPosition(sprite.getX() + 10, sprite.getY() - 10);
+
+        // Increment the angle to make the sprite move along the circular path
+        angle += shipSpeed * delta;
 
     }
 

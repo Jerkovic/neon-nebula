@@ -8,19 +8,15 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.neonnebula.game.NeonNebulaGame;
 import com.neonnebula.game.entity.PlayerShip;
 
 public class GamePlayScreen implements Screen {
     NeonNebulaGame game;
-
     TextureRegion background;
-
     PlayerShip playerShip;
-    Sound laserSound;
-
     Music music;
-
     TextureAtlas atlas;
 
     private SpriteBatch batch;
@@ -42,7 +38,9 @@ public class GamePlayScreen implements Screen {
     public void show() {
         music.setLooping(true);
         music.setVolume(1.0f);
+        float randomPosition = 40f;
         music.play(); // start music
+        music.setPosition(randomPosition);
     }
 
     private void handleInput(float delta) {
@@ -91,5 +89,6 @@ public class GamePlayScreen implements Screen {
     public void dispose() {
         atlas.dispose();
         batch.dispose();
+        music.dispose();
     }
 }
