@@ -42,9 +42,9 @@ public class PlayerShip {
     }
 
     private float generateRandomPitchValue() {
-        float minPitch = 0.90f;  // Lower bound
+        float minPitch = 1.0f;  // Lower bound
         float maxPitch = 1.1f;  // Upper bound
-        return minPitch + MathUtils.random() * (maxPitch - minPitch);
+        return MathUtils.random(minPitch, maxPitch);
     }
 
     public void update(float delta) {
