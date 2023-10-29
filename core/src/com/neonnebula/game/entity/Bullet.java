@@ -26,7 +26,6 @@ public class Bullet extends Entity implements Pool.Poolable {
 
         if (getOriginY() > 1000) {
             alive = false;
-            System.out.println("setting bullet to dead");
         }
         float speed = bulletSpeed * delta;
         super.translate(0, speed);

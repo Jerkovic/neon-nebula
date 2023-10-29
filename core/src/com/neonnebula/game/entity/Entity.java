@@ -14,11 +14,8 @@ public abstract class Entity implements Disposable {
     private final Sprite sprite;
     private final Sprite shadow;
 
-    private final Vector2 position;
-
 
     public Entity(TextureRegion textureRegion, float x, float y) {
-        this.position = new Vector2(x, y);
 
         this.sprite = new Sprite(textureRegion);
         sprite.setOriginCenter();
