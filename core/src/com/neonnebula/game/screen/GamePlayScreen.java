@@ -9,7 +9,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool;
 import com.neonnebula.game.NeonNebulaGame;
+import com.neonnebula.game.entity.Bullet;
 import com.neonnebula.game.entity.PlayerShip;
 
 public class GamePlayScreen implements Screen {
@@ -26,10 +29,11 @@ public class GamePlayScreen implements Screen {
         batch = new SpriteBatch();
 
         // get the spriteSheet (atlas) from the asset manager
-        TextureAtlas atlas = game.getAssetManager().get("texturePack.txt");
+        final TextureAtlas atlas = game.getAssetManager().get("texturePack.txt");
 
         music = game.getAssetManager().get("music/jeroen.mp3");
         background = atlas.findRegion("background");
+
         playerShip = new PlayerShip(atlas.findRegion("PlayerShip"));
         playerShip.setLaserSound((Sound) game.getAssetManager().get("sfx/laser.wav"));
     }
@@ -61,13 +65,15 @@ public class GamePlayScreen implements Screen {
 
         batch.begin();
         batch.draw(background, 0, 0);
+        // shadows
+        playerShip.renderShadow(batch);
+
+        // albedo sprites
         playerShip.render(batch);
         batch.end();
 
         // debugs
         playerShip.renderDebug();
-
-
     }
 
     @Override

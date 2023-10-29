@@ -3,38 +3,39 @@ package com.neonnebula.game.entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool;
 
+public class PlayerShip extends Entity {
 
-public class PlayerShip {
+    private final Array<Bullet> activeBullets = new Array<Bullet>();
 
-    private ShapeRenderer shapeRenderer = new ShapeRenderer();
-    private final Sprite sprite;
-    private final Sprite shadow;
+    // bullet pool.
+    private final Pool<Bullet> bulletPool;
+
     private float shipSpeed = 200f;
     private Sound laser;
 
-    float shotCoolDown = .45f; // Shooting - Cool down time in seconds
+    float shotCoolDown = .15f; // Shooting - Cool down - time in seconds
     float timeSinceLastShot = 0.0f; // Time elapsed since the last shot
     boolean canShoot = true; // shooting is allowed or not
 
     float angle=0, radius=8;
 
 
-    public PlayerShip(TextureRegion textureRegion) {
-        sprite = new Sprite(textureRegion);
-        sprite.setOriginCenter();
-        sprite.setOriginBasedPosition(200f, 200f);
+    public PlayerShip(final TextureRegion textureRegion) {
 
-        shadow = new Sprite(sprite);
-        shadow.setColor(Color.BLACK);
-        shadow.setAlpha(.3f);
+        super(textureRegion, 200, 200);
+        bulletPool = new Pool<Bullet>() {
+            @Override
+            protected Bullet newObject() {
+                // we reuse the same textureRegion for now
+                return new Bullet(textureRegion, 0,0);
+            }
+        };
     }
 
     public void setLaserSound(Sound laser) {
@@ -49,15 +50,24 @@ public class PlayerShip {
 
     public void update(float delta) {
         handleInput(delta);
-
-        updateShipMovement(delta);
-
         timeSinceLastShot += delta;
         if (!canShoot && timeSinceLastShot >= shotCoolDown) {
             canShoot = true;
         }
+
+        // free
+        freeDeadBullets();
+
+        // update bullets
+        Bullet tempBullet;
+        for (int i = activeBullets.size; --i >= 0;) {
+            tempBullet = activeBullets.get(i);
+            tempBullet.update(delta);
+        }
+        super.update(delta);
     }
 
+    /**
     private void updateShipMovement(float delta) {
         // Calculate the new position of the sprite
         float x = sprite.getX() + radius * MathUtils.cosDeg(angle);
@@ -70,60 +80,69 @@ public class PlayerShip {
         // Increment the angle to make the sprite move along the circular path
         angle += shipSpeed * delta;
 
-    }
+    } **/
 
     private void handleInput(float delta) {
         float speed = shipSpeed * delta;
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            sprite.translate(0, speed);
+            super.translate(0, speed);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            sprite.translate(0, -speed);
+            super.translate(0, -speed);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            sprite.translate(-speed, 0);
+            super.translate(-speed, 0);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            sprite.translate(speed, 0);
+            super.translate(speed, 0);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             if (canShoot) {
                 if (timeSinceLastShot >= shotCoolDown) {
-                    // Perform the shooting logic here
-                    laser.play(1f, generateRandomPitchValue(), 0f);
-                    timeSinceLastShot = 0.0f; // Reset timer
-                    canShoot = false; // Shooting is not allowed until the cool down is over
+                    spawnBullet();
                 }
             }
         }
+    }
 
-        shadow.setPosition(sprite.getX() + 10, sprite.getY() - 10);
+    private void spawnBullet() {
+        laser.play(1f, generateRandomPitchValue(), 0f);
+        timeSinceLastShot = 0.0f;
+        canShoot = false;
+
+        Bullet bullet = bulletPool.obtain();
+        bullet.setPosition(getOriginX(), getOriginY());
+        bullet.setAlive(true);
+        activeBullets.add(bullet);
     }
 
     public void render(SpriteBatch batch) {
-
-        shadow.draw(batch);
-        sprite.draw(batch);
+        renderBullets(batch);
+        super.render(batch);
     }
 
-    public void renderDebug() {
+    public void freeDeadBullets () {
+        Bullet bullet;
+        int len = activeBullets.size;
+        for (int i = len; --i >= 0;) {
+            bullet = activeBullets.get(i);
+            if (bullet.isAlive() == false) {
+                activeBullets.removeIndex(i);
+                bulletPool.free(bullet);
+                // System.out.println("Removed bullet from pool: " + activeBullets.size);
+            }
+        }
+    }
 
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        Color prevColor = shapeRenderer.getColor();
-        shapeRenderer.setColor(Color.RED);
-
-        float spriteX = sprite.getX();
-        float spriteY = sprite.getY();
-        float spriteWidth = sprite.getWidth();
-        float spriteHeight = sprite.getHeight();
-
-        shapeRenderer.rect(spriteX, spriteY, spriteWidth, spriteHeight);
-        shapeRenderer.setColor(prevColor); // reset the color
-        shapeRenderer.end();
+    public void renderBullets(SpriteBatch batch) {
+        for (int i = activeBullets.size; --i >= 0;) {
+            Bullet tempBullet = activeBullets.get(i);
+            tempBullet.render(batch);
+        }
     }
 
     public void dispose() {
+        super.dispose();
         laser.dispose();
-        shapeRenderer.dispose();
     }
 }
