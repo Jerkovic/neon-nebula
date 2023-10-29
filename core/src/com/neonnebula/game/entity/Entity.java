@@ -45,8 +45,6 @@ public abstract class Entity implements Disposable {
     }
 
     public void update(float delta) {
-        // make shadow pos dynamic
-        shadow.setPosition(sprite.getX() + 10, sprite.getY() - 10);
     }
 
     public void render(SpriteBatch batch) {
@@ -54,6 +52,7 @@ public abstract class Entity implements Disposable {
     }
 
     public void renderShadow(SpriteBatch batch) {
+        shadow.setPosition(sprite.getX() + 10, sprite.getY() - 10);
         shadow.draw(batch);
     }
 

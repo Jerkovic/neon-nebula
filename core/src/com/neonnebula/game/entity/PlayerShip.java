@@ -121,6 +121,11 @@ public class PlayerShip extends Entity {
         super.render(batch);
     }
 
+    public void renderShadow(SpriteBatch batch) {
+        renderBulletsShadows(batch);
+        super.renderShadow(batch);
+    }
+
     public void freeDeadBullets () {
         Bullet bullet;
         int len = activeBullets.size;
@@ -138,6 +143,12 @@ public class PlayerShip extends Entity {
         for (int i = activeBullets.size; --i >= 0;) {
             Bullet tempBullet = activeBullets.get(i);
             tempBullet.render(batch);
+        }
+    }
+
+    public void renderBulletsShadows(SpriteBatch batch) {
+        for (int i = activeBullets.size; --i >= 0;) {
+            activeBullets.get(i).renderShadow(batch);
         }
     }
 
